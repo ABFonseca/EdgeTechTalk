@@ -58,7 +58,7 @@ def token_required(f):
         try:
             token = auth_headers[1]
             data = decode(token, current_app.config['SECRET_KEY'])
-            user = USERNAME_TABLE.get(data['sub'], None)
+            user = db.get_user_by_name(data['sub']) #CHANGE
             if not user:
                 raise RuntimeError('User not found')
             return f(*args, **kwargs)
@@ -76,7 +76,7 @@ def token_required(f):
 
 @APP.route('/user_info', methods=['GET'])
 def user_list():
-    user_list = [{'id': u.id, 'username': u.username} for u in USERS]
+    user_list = [{'id': u.u_id, 'username': u.username} for u in db.get_users()] #CHANGE
     print(user_list)
     response = jsonify({'users': user_list})
     return response, 200

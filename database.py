@@ -33,7 +33,7 @@ def get_user_by_id(id):
     
 
 def get_user_by_name(name):
-    result = session.query(User).filter(User.u_name == name).first()
+    result = session.query(User).filter(User.username == name).first()
     return result
     
 def get_users():
