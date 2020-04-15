@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import datetime
 
-engine = create_engine("postgresql://postgres:docker@localhost/api_example)
+engine = create_engine("postgresql://postgres:docker@localhost/api_example")
 Base = declarative_base()
 
 class User(Base):
