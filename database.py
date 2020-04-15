@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import datetime
 
-engine = create_engine("postgresql://user:pass@url/bd)
+engine = create_engine("postgresql://postgres:docker@localhost/api_example)
 Base = declarative_base()
 
 class User(Base):
@@ -36,6 +36,9 @@ def get_user_by_name(name):
     result = session.query(User).filter(User.u_name == name).first()
     return result
     
+def get_users():
+	results = session.query(User).all()
+	return [result for result in results]
     
 
 Session = sessionmaker(bind=engine)

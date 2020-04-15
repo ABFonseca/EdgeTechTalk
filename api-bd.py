@@ -109,7 +109,7 @@ def user(user_id):
             response = jsonify({'status': 'failed', 'fail reason': 'Wrong arguments'})
             return response, 500
         
-    user = db.get_user_by_id(user_id)
+    user = db.get_user_by_id(user_id) #CHANGE
     if user is None:
         response = jsonify({'status': 'failed', 'fail reason': 'User not found'})
         return response, 404
@@ -124,4 +124,9 @@ def user(user_id):
         
         
 if __name__ == '__main__':
+    users = db.get_users() #CHANGE
+    if not users:
+        db.create_user('admin_user', 'admin_pass', 'Padrinho')
+        db.create_user('readonly_user', 'readonly_pass', 'Jurassic World')
+        db.create_user('readwrite_user', 'readwrite_pass', 'Jurassic Park')
     APP.run(port='5050')
