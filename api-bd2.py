@@ -90,6 +90,37 @@ def movie_list():
         
 
 
+@APP.route('/movies/<int:movie_id>', methods=['GET', 'POST'])
+def movie_info(movie_id):
+    def get_movie_info(m_id):
+        movie = db.get_movie_by_id(movie_id)
+        return jsonify({'Name': movie.name, 'Author': movie.author, 'IMDB Rating': movie.imdb_rating})
+        
+    def update_movie_info(m_id):
+        print("movie_id %s" % m_id, flush=True)
+        print(request, flush=True)
+        print(request.get_json(), flush=True)
+        print("AAAAAAAAAAA", flush=True)
+        req_json = request.get_json()
+        print("DDDDDDDDDD", flush=True)
+        name = req_json['name']
+        author = req_json['author']
+        imdb_rating = req_json['imdb_rating']
+        print("EEEEEEEEEEEEEEE", flush=True)
+        db.update_movie_info(m_id, name, author, imdb_rating)
+        print("FFFFFFFFFF", flush=True)
+        return jsonify({'status': 'success'})
+    print("CCCCCCCCC", flush=True)
+    if request.method == 'GET':
+        return get_movie_info(movie_id)
+    elif request.method == 'POST':
+        print("BBBBBBBBBBBBBB", flush=True)
+        return update_movie_info(movie_id)
+    else:
+        response = jsonify({'status': 'failed', 'fail reason': 'Wrong method, only POST and GET available'})
+        return response, 401
+
+
 @APP.route('/user_info/<int:user_id>', methods=['GET'])
 def user(user_id):
     def get_user_info(user):
@@ -139,10 +170,23 @@ def user_movies(user_id):
         return response, 401
 
 
-@APP.route('/user_info/<int:user_id>/movies/<int:movie_id>', methods=['GET'])
-def movies_info(user_id, movie_id):
-    movie = db.get_movie_by_id(movie_id)
-    return jsonify({'Name': movie.name, 'Author': movie.author, 'IMDB Rating': movie.imdb_rating})
+@APP.route('/user_info/<int:user_id>/movies/<int:movie_id>', methods=['GET', 'DELETE'])
+def user_movie(user_id, movie_id):
+    def get_user_movie_info(u_id, m_id):
+        movie = db.get_movie_by_id(movie_id)
+        return jsonify({'Name': movie.name, 'Author': movie.author, 'IMDB Rating': movie.imdb_rating})
+		
+    def del_user_movie(u_id, m_id):
+        db.remove_user_movie(u_id, m_id)
+        return jsonify({'status': 'success'})
+	
+    if request.method == 'GET':
+        return get_user_movie_info(user_id, movie_id)
+    elif request.method == 'DELETE':
+        return del_user_movie(user_id, movie_id)
+    else:
+        response = jsonify({'status': 'failed', 'fail reason': 'Wrong method, only DELETE and GET available'})
+        return response, 401
 
         
 if __name__ == '__main__':

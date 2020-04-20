@@ -80,6 +80,15 @@ def get_movies():
 	results = session.query(Movie).all()
 	return [result for result in results]
 
+def update_movie_info(m_id, name, author, imdb_rating):
+    result = session.query(Movie).filter(Movie.m_id == m_id).first()
+    if result:
+        result.imdb_rating = imdb_rating
+        result.name = name
+        result.author = author
+        session.commit()
+    return
+
 
 
 def create_user_movie(u_id, m_id):
