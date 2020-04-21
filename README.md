@@ -21,12 +21,8 @@ docker run -p 80:80 -e "PGADMIN_DEFAULT_EMAIL=user@domain.com" -e "PGADMIN_DEFAU
 
 ```
 
-### In Windows Server 2016
-Install Grafana: [Instructions here](https://grafana.com/docs/grafana/latest/installation/windows/)
-
+### In Windows Server 2016 (or machine without docker)
 Install Postgres: [Instructions here](https://www.postgresql.org/download/windows/)
-
-Install InfluxDB: [Instructions here](https://portal.influxdata.com/downloads/)
 
 
 # Executing the code
