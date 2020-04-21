@@ -8,7 +8,7 @@ USERNAME = 'you'
 APP = Flask(__name__)
 
 @APP.route('/user_info', methods=['GET', 'POST'])
-def user():
+def user_info():
     def get_user_info():
         """
         Get the axis configured values

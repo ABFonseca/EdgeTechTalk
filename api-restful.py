@@ -37,7 +37,7 @@ USERID_TABLE = {u.id: u for u in USERS}
 APP = Flask(__name__)
 
 @APP.route('/user_info', methods=['GET'])
-def user_list():
+def user_info():
     user_list = [{'id': u.id, 'username': u.username} for u in USERS]
     print(user_list)
     response = jsonify({'users': user_list})

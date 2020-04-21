@@ -75,7 +75,7 @@ def token_required(f):
     return _verify
 
 @APP.route('/user_info', methods=['GET'])
-def user_list():
+def user_info():
     user_list = [{'id': u.u_id, 'username': u.username} for u in db.get_users()] #CHANGE
     response = jsonify({'users': user_list})
     return response, 200
