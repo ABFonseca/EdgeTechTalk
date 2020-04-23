@@ -19,7 +19,6 @@ class User(Base):
         self.username = username
         self.password = password
         self.favorite_movie = fav_movie
-        
 
 def create_user(name, password, fav_movie):
     user = User(name, password, fav_movie)
@@ -38,8 +37,7 @@ def get_user_by_name(name):
     
 def get_users():
 	results = session.query(User).all()
-	return [result for result in results]
-    
+	return results
 
 Session = sessionmaker(bind=engine)
 session = Session()

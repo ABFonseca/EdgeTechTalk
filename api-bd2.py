@@ -97,24 +97,15 @@ def movie_info(movie_id):
         return jsonify({'Name': movie.name, 'Author': movie.author, 'IMDB Rating': movie.imdb_rating})
         
     def update_movie_info(m_id):
-        print("movie_id %s" % m_id, flush=True)
-        print(request, flush=True)
-        print(request.get_json(), flush=True)
-        print("AAAAAAAAAAA", flush=True)
         req_json = request.get_json()
-        print("DDDDDDDDDD", flush=True)
         name = req_json['name']
         author = req_json['author']
         imdb_rating = req_json['imdb_rating']
-        print("EEEEEEEEEEEEEEE", flush=True)
         db.update_movie_info(m_id, name, author, imdb_rating)
-        print("FFFFFFFFFF", flush=True)
         return jsonify({'status': 'success'})
-    print("CCCCCCCCC", flush=True)
     if request.method == 'GET':
         return get_movie_info(movie_id)
     elif request.method == 'POST':
-        print("BBBBBBBBBBBBBB", flush=True)
         return update_movie_info(movie_id)
     else:
         response = jsonify({'status': 'failed', 'fail reason': 'Wrong method, only POST and GET available'})
